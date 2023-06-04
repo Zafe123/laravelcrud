@@ -9,11 +9,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = "Prdouct list form in Product Controller";
-        return view('index', ['products' => $products]);
+        return view('products.index', ['products' => $products]);
     }
 
     public function create()
     {
-        return view('productsCreate');
+        return view('products.create');
     }
 }
