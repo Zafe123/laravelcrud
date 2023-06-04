@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = "Prdouct list form in Product Controller";
+        $products = Product::latest()->get();
         return view('products.index', ['products' => $products]);
     }
 
@@ -21,6 +21,13 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
+
+        $request->validate([
+            'name' => 'required',
+            "image" => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2028'
+        ]);
+
         $product = new Product;
 
         $file_name = time() . '.' . request()->image->getClientOriginalExtension();

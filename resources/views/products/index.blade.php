@@ -6,6 +6,16 @@
             <h1>Products</h1>
             <a href="{{route('products.create')}}"><button>Add Product</button></a>
         </div>
+        @if ($message = Session::get('success'))
+        <div>
+            <ul>
+                <li>
+                    {{$message}}
+                </li>
+            </ul>
+        </div>
+
+        @endif
         <div class="table">
             <div class="table-filter">
                 <div>
@@ -38,10 +48,12 @@
                 <p>Actions</p>
             </div>
             <div class="table-product-body">
-                <img src="1.jpg" />
-                <p> Product name</p>
-                <p>Category</p>
-                <p>Inventory</p>
+                @if (count($products)> 0)
+                @foreach ($products as $product)
+                <img src="{{asset('images/'. $product->image)}}" />
+                <p>{{$product->name}}</p>
+                <p>{{$product->category}}</p>
+                <p>{{$product->quantity}}</p>
                 <div>
                     <button class="btn btn-success">
                         <i class="fas fa-pencil-alt"></i>
@@ -50,6 +62,9 @@
                         <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
+                @endforeach
+                @else
+                @endif
             </div>
             <div class="table-paginate">
                 <div class="pagination">
