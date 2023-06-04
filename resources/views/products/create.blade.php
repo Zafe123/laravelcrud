@@ -2,7 +2,7 @@
 @section('content')
 <main class="container">
     <section>
-        <form action="post" action="{{route('products.store')}}" enctype="multipart/form-data">
+        <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="titlebar">
                 <h1>Add Product</h1>
@@ -20,15 +20,18 @@
                 </div>
                 <div>
                     <label>Category</label>
-                    <select name="" id="">
-                        <option value="">Email Subscription</option>
+                    <select name="category">
+                        @foreach(json_decode('{"Smartphone":"Smartphone","Smart TV":"Smart TV","Computer":"Computer"}',
+                        true) as $optionKey => $optionValue)
+                        <option value="{{ $optionKey }}">{{ $optionValue }}</option>
+                        @endforeach
                     </select>
                     <hr>
                     <label>Inventory</label>
-                    <input type="text" class="input">
+                    <input type="text" name="quantity">
                     <hr>
                     <label>Price</label>
-                    <input type="text" class="input">
+                    <input type="text" name="price">
                 </div>
             </div>
             <div class="titlebar">
