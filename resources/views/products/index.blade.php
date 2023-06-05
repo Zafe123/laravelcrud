@@ -67,12 +67,16 @@ Toast.fire({
                 <p>{{$product->category}}</p>
                 <p>{{$product->quantity}}</p>
                 <div>
-                    <button class="btn btn-success">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
+                    <a href="{{route('products.edit', $product->id)}}">
+                        <button class="btn btn-success">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+
+                    </a>
                     <button class="btn btn-danger">
                         <i class="far fa-trash-alt"></i>
                     </button>
+
                 </div>
                 @endforeach
                 @else

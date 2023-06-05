@@ -2,7 +2,7 @@
 @section('content')
 <main class="container">
     <section>
-        <form method="post" action="{{route('products.update')}}" enctype="multipart/form-data">
+        <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="titlebar">
                 <h1>Edit Product</h1>
