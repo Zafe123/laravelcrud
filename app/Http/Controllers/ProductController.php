@@ -7,10 +7,19 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->get();
-        return view('products.index', ['products' => $products]);
+        $keyword = $request->get('search');
+        $perPage = 5;
+
+        if (!empty($keyword)) {
+            $products = Product::where('name', 'LIKE', "%$keyword")
+                ->orWhere('category', 'LIKE', "%$keyword")
+                ->latest()->paginate($perPage);
+        } else {
+            $products = Product::latest()->paginate($perPage);
+        }
+        return view('products.index', ['products' => $products])->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function create()
@@ -44,6 +53,14 @@ class ProductController extends Controller
         $product->save();
         return redirect()->route('products.index')->with('success', 'Product Added Successfully');
 
+
+    }
+
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('products.edit', ['product' => $product]);
 
     }
 }
